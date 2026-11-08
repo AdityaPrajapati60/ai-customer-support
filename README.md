@@ -51,3 +51,21 @@ supabase --version
 This `$env:Path` change applies only to the current PowerShell window. In a new
 window, either add the shims directory again or invoke Scoop through the full
 script path shown above.
+
+## Knowledge base
+
+The six Markdown files in `knowledge_base/` are the source for the Harbor & Pine
+knowledge base. Each file represents a section, and each `##` heading becomes
+one row in Supabase.
+
+Apply the existing schema migration to the linked Supabase project, then seed or
+update the entries:
+
+```powershell
+supabase db push
+uv run python -m scripts.seed_knowledge_base
+```
+
+The seed script updates existing entries with the same section and title. This
+overwrites database edits for those entries, so make future content changes in
+the Markdown files and reseed only when that overwrite is intended.
