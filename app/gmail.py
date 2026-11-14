@@ -13,6 +13,15 @@ ESCALATED_LABEL = "needs-human"
 
 class Gmail:
     def __init__(self) -> None:
+        if not (
+            settings.google_refresh_token
+            and settings.google_client_id
+            and settings.google_client_secret
+        ):
+            raise ValueError(
+                "Gmail requires GOOGLE_REFRESH_TOKEN, GOOGLE_CLIENT_ID, "
+                "and GOOGLE_CLIENT_SECRET."
+            )
         creds = Credentials(
             token=None,
             refresh_token=settings.google_refresh_token,
